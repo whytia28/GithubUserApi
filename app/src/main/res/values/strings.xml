@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GithubUserApi</string>
+    <string name="type_something">Type something</string>
+    <string name="submission_2_bfaa">Submission 2 BFAA</string>
+    <string name="username">Username</string>
+    <string name="organization">Organization</string>
+    <string name="type_some_keyword">type some keyword</string>
+    <string name="search">Search</string>
+</resources>

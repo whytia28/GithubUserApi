@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = getString(R.string.main_title)
+
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
 
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun showLoading(state: Boolean) {
         if (state) {
             progress_bar.visibility = View.VISIBLE
-        }else{
+        } else {
             progress_bar.visibility = View.GONE
         }
     }

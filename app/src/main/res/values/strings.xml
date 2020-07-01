@@ -6,4 +6,10 @@
     <string name="organization">Organization</string>
     <string name="type_some_keyword">type some keyword</string>
     <string name="search">Search</string>
+    <string name="main_title">Github User Search</string>
+    <string name="welcome_title">Welcome</string>
+    <string name="detail_title">Detail User</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
 </resources>

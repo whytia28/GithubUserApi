@@ -31,8 +31,8 @@ class MainViewModel : ViewModel() {
             ) {
                 try {
                     val result = String(responseBody)
-                    val responsObject = JSONObject(result)
-                    val list = responsObject.getJSONArray("items")
+                    val responseObject = JSONObject(result)
+                    val list = responseObject.getJSONArray("items")
 
                     for (i in 0 until list.length()) {
                         val user = list.getJSONObject(i)

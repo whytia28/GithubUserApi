@@ -7,4 +7,6 @@ class UserItems {
     var name: String? = null
     var company: String? = null
     var location: String? = null
+    var followers: String? = null
+    var following: String? = null
 }

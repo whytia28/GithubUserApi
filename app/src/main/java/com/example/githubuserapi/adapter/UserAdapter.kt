@@ -9,7 +9,7 @@ import com.example.githubuserapi.R
 import com.example.githubuserapi.UserItems
 import kotlinx.android.synthetic.main.user_items.view.*
 
-class UserAdapter() :
+class UserAdapter :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private var mData = ArrayList<UserItems> ()
@@ -39,7 +39,6 @@ class UserAdapter() :
                     Glide.with(itemView).load(userItems.avatar).into(avatar)
                 }
                 tv_username.text = userItems.username
-                tv_organization.text = userItems.organization
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.githubuserapi.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.user_items.view.*
 class UserAdapter :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private var mData = ArrayList<UserItems> ()
+    private var mData = ArrayList<UserItems>()
 
     fun setData(items: ArrayList<UserItems>) {
         mData.clear()

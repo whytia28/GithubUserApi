@@ -1,8 +1,12 @@
 package com.example.githubuserapi
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,20 +36,37 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
 
-        btn_search.setOnClickListener {
-            val username = edt_search.text.toString()
-            if (username.isEmpty()) return@setOnClickListener
-            showLoading(true)
+    }
 
-            mainViewModel.setUser(username)
-        }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.search_menu, menu)
 
-        mainViewModel.getUser().observe(this, Observer { userItems ->
-            if (userItems != null) {
-                adapter.setData(userItems)
-                showLoading(false)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu?.findItem(R.id.search)?.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.type_some_keyword)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                mainViewModel.getUser().observe(this@MainActivity, Observer { userItems ->
+                    if (userItems != null) {
+                        adapter.setData(userItems)
+                        showLoading(false)
+                    }
+                })
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                val username: String = query
+                showLoading(true)
+                mainViewModel.setUser(username)
+                return true
             }
         })
+        return true
     }
 
     private fun showLoading(state: Boolean) {

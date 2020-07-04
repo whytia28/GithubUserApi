@@ -1,6 +1,5 @@
 package com.example.githubuserapi.adapter
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,8 @@ import com.example.githubuserapi.R
 import com.example.githubuserapi.UserItems
 import kotlinx.android.synthetic.main.user_items.view.*
 
-class UserAdapter :
-    RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class FollowerAdapter : RecyclerView.Adapter<FollowerAdapter.FollowerViewHolder>() {
 
-    private var onItemClickCallback: OnItemClickCallback? = null
     private var mData = ArrayList<UserItems>()
 
     fun setData(items: ArrayList<UserItems>) {
@@ -22,33 +19,26 @@ class UserAdapter :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): UserViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FollowerViewHolder {
         val mView =
             LayoutInflater.from(viewGroup.context).inflate(R.layout.user_items, viewGroup, false)
-        return UserViewHolder(mView)
-    }
-
-    override fun onBindViewHolder(userViewHolder: UserViewHolder, position: Int) {
-        userViewHolder.bind(mData[position])
+        return FollowerViewHolder(mView)
     }
 
     override fun getItemCount(): Int = mData.size
 
-    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun onBindViewHolder(holder: FollowerViewHolder, position: Int) {
+        holder.bind(mData[position])
+    }
+
+    inner class FollowerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(userItems: UserItems) {
             with(itemView) {
                 userItems.avatar.apply {
                     Glide.with(itemView).load(userItems.avatar).into(avatar)
                 }
                 tv_username.text = userItems.username
-                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(userItems) }
             }
         }
-    }
-    interface OnItemClickCallback {
-        fun onItemClicked(data: UserItems)
-    }
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
     }
 }

@@ -9,8 +9,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.githubuserapi.R
 
 class PagerAdapter (private val context: Context, fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
+
+
     @StringRes
-    private val TAB_TITLES = intArrayOf(R.string.tab_1, R.string.tab_2)
+    private val tabTitle = intArrayOf(R.string.tab_1, R.string.tab_2)
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
@@ -23,7 +25,7 @@ class PagerAdapter (private val context: Context, fragmentManager: FragmentManag
 
     @Nullable
     override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
+        return context.resources.getString(tabTitle[position])
     }
 
     override fun getCount(): Int {

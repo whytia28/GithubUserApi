@@ -2,6 +2,7 @@ package com.example.githubuserapi
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapi.adapter.UserAdapter
+import com.example.githubuserapi.detail.DetailActivity
 import com.example.githubuserapi.model.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,14 +30,32 @@ class MainActivity : AppCompatActivity() {
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
 
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.adapter = adapter
+        showRecyclerView()
 
         mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(MainViewModel::class.java)
+        mainViewModel.getUser().observe(this@MainActivity, Observer { userItems ->
+            if (userItems != null) {
+                adapter.setData(userItems)
+                showLoading(false)
+            }
+        })
 
+    }
+
+    private fun showRecyclerView() {
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.adapter = adapter
+        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: UserItems) {
+                val mainIntent = Intent(this@MainActivity, DetailActivity::class.java)
+                mainIntent.putExtra(DetailActivity.EXTRA_USER, data)
+                startActivity(mainIntent)
+            }
+
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,19 +70,12 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                mainViewModel.getUser().observe(this@MainActivity, Observer { userItems ->
-                    if (userItems != null) {
-                        adapter.setData(userItems)
-                        showLoading(false)
-                    }
-                })
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                val username: String = query
                 showLoading(true)
-                mainViewModel.setUser(username)
+                mainViewModel.setUser(query)
                 return true
             }
         })

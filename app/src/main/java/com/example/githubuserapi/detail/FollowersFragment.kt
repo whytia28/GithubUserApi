@@ -5,33 +5,56 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapi.R
+import com.example.githubuserapi.adapter.FollowerAdapter
+import com.example.githubuserapi.model.FollowersViewModel
+import kotlinx.android.synthetic.main.fragment_followers.*
 
 class FollowersFragment : Fragment() {
 
-    private val ARG_SECTIEN_NUMBER = "section_number"
-
-    fun newInstance(index: Int): FollowersFragment {
-        val fragment = FollowersFragment()
-        val bundle = Bundle()
-        bundle.putInt(ARG_SECTIEN_NUMBER, index)
-        fragment.arguments = bundle
-        return fragment
+    companion object {
+        const val EXTRA_FOLLOWERS = "extra_followers"
     }
+
+    private lateinit var adapter: FollowerAdapter
+    private lateinit var followersViewModel: FollowersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_followers, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var index = 1
+
+        adapter = FollowerAdapter()
+        adapter.notifyDataSetChanged()
+
+        showRecyclerView()
+
+        followersViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(FollowersViewModel::class.java)
+
         if (arguments != null) {
-            index = arguments?.getInt(ARG_SECTIEN_NUMBER, 0) as Int
+            val username = arguments?.getString(EXTRA_FOLLOWERS)
+            followersViewModel.setFollowers(username.toString())
         }
+        followersViewModel.getFollowers().observe(viewLifecycleOwner, Observer { userItems ->
+            if (userItems != null) {
+                adapter.setData(userItems)
+            }
+        })
+    }
+
+    private fun showRecyclerView() {
+        rv_followers.layoutManager = LinearLayoutManager(context)
+        rv_followers.adapter = adapter
     }
 }

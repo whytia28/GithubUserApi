@@ -1,10 +1,10 @@
-package com.example.githubuserapi.model
+package com.example.githubuserapi.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubuserapi.UserItems
+import com.example.githubuserapi.model.UserItems
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -29,12 +29,13 @@ class FollowersViewModel : ViewModel() {
             ) {
                 try {
                     val result = String(responseBody)
-                    val jsonObject = JSONArray(result)
+                    val responseObject = JSONArray(result)
 
-                    for (i in 0 until jsonObject.length()) {
-                        val users = jsonObject.getJSONObject(i)
-                        val userItems = UserItems()
-                        userItems.username = users.getString("login")
+                    for (i in 0 until responseObject.length()) {
+                        val users = responseObject.getJSONObject(i)
+                        val userItems =
+                            UserItems()
+                        userItems.login = users.getString("login")
                         userItems.avatar = users.getString("avatar_url")
                         listUsers.add(userItems)
                     }

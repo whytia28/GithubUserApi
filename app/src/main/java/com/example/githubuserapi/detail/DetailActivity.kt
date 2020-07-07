@@ -7,8 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.UserItems
-import com.example.githubuserapi.model.DetailViewModel
+import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.adapter.PagerAdapter
+import com.example.githubuserapi.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -26,25 +27,23 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.detail_title)
 
-        val pagerAdapter = PagerAdapter(this, supportFragmentManager)
-        view_pager.adapter = pagerAdapter
-        tabs.setupWithViewPager(view_pager)
-        supportActionBar?.elevation = 0f
+        setViewPager()
+        setDetail()
+    }
 
-        showFollowerFollowing(userItems)
-
+    private fun setDetail() {
         userItems = intent.getParcelableExtra(EXTRA_USER) as UserItems
-        tv_username.text = userItems!!.username
+        tv_username.text = userItems!!.login
         userItems!!.avatar.apply {
             Glide.with(this@DetailActivity).load(userItems!!.avatar).into(avatar)
         }
-
 
         detailViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailViewModel::class.java)
-        userItems?.username?.let { detailViewModel.setDetailUser(it) }
+
+        userItems?.login?.let { detailViewModel.setDetailUser(it) }
         detailViewModel.getDetailUser().observe(this@DetailActivity, Observer { userItems ->
             if (userItems != null) {
                 tv_name.text = userItems.name
@@ -53,17 +52,15 @@ class DetailActivity : AppCompatActivity() {
                 Log.d("detail", "getDetail success")
             }
         })
-
     }
 
-    private fun showFollowerFollowing(data: UserItems?) {
-
-        val bundle = Bundle()
-        val followersFragment = FollowersFragment()
-        bundle.putString(FollowersFragment.EXTRA_FOLLOWERS, data?.username)
-        followersFragment.arguments = bundle
-        val followingFragment = FollowingFragment()
-        bundle.putString(FollowingFragment.EXTRA_FOLLOWING, data?.username)
-        followingFragment.arguments = bundle
+    private fun setViewPager() {
+        val pagerAdapter = PagerAdapter(
+            this,
+            supportFragmentManager
+        )
+        view_pager.adapter = pagerAdapter
+        tabs.setupWithViewPager(view_pager)
+        supportActionBar?.elevation = 0f
     }
 }

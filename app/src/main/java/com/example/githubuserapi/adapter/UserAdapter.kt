@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.UserItems
+import com.example.githubuserapi.model.UserItems
 import kotlinx.android.synthetic.main.user_items.view.*
 
 class UserAdapter :
@@ -40,7 +40,7 @@ class UserAdapter :
                 userItems.avatar.apply {
                     Glide.with(itemView).load(userItems.avatar).into(avatar)
                 }
-                tv_username.text = userItems.username
+                tv_username.text = userItems.login
                 itemView.setOnClickListener { onItemClickCallback?.onItemClicked(userItems) }
             }
         }

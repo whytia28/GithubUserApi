@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".detail.FollowersFragment">
+    android:background="@color/colorBackground2"
+    tools:context=".detail.FollowingFollowersFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -15,7 +16,7 @@
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_followers"
+        android:id="@+id/rv_following"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/user_items" />

@@ -1,11 +1,11 @@
-package com.example.githubuserapi.model
+package com.example.githubuserapi.viewmodel
 
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.githubuserapi.UserItems
+import com.example.githubuserapi.model.UserItems
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -36,9 +36,10 @@ class MainViewModel : ViewModel() {
 
                     for (i in 0 until list.length()) {
                         val user = list.getJSONObject(i)
-                        val userItems = UserItems()
+                        val userItems =
+                            UserItems()
                         userItems.id = user.getInt("id")
-                        userItems.username = user.getString("login")
+                        userItems.login = user.getString("login")
                         userItems.avatar = user.getString("avatar_url")
                         listUsers.add(userItems)
                     }

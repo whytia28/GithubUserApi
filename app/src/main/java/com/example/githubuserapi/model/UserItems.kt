@@ -1,4 +1,4 @@
-package com.example.githubuserapi
+package com.example.githubuserapi.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UserItems(
     var id: Int = 0,
-    var username: String? = null,
+    var login: String? = null,
     var avatar: String? = null,
     var name: String? = null,
     var company: String? = null,

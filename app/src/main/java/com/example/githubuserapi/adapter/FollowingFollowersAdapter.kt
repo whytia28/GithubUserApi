@@ -6,38 +6,39 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.UserItems
+import com.example.githubuserapi.model.UserItems
 import kotlinx.android.synthetic.main.user_items.view.*
 
-class FollowerAdapter : RecyclerView.Adapter<FollowerAdapter.FollowerViewHolder>() {
+class FollowingFollowersAdapter :
+    RecyclerView.Adapter<FollowingFollowersAdapter.FollowingViewHolder>() {
 
-    private var mData = ArrayList<UserItems>()
+    private val listData = ArrayList<UserItems>()
 
     fun setData(items: ArrayList<UserItems>) {
-        mData.clear()
-        mData.addAll(items)
+        this.listData.clear()
+        this.listData.addAll(items)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FollowerViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): FollowingViewHolder {
         val mView =
             LayoutInflater.from(viewGroup.context).inflate(R.layout.user_items, viewGroup, false)
-        return FollowerViewHolder(mView)
+        return FollowingViewHolder(mView)
     }
 
-    override fun getItemCount(): Int = mData.size
+    override fun getItemCount(): Int = this.listData.size
 
-    override fun onBindViewHolder(holder: FollowerViewHolder, position: Int) {
-        holder.bind(mData[position])
+    override fun onBindViewHolder(holder: FollowingViewHolder, position: Int) {
+        holder.bind(this.listData[position])
     }
 
-    inner class FollowerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class FollowingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(userItems: UserItems) {
             with(itemView) {
                 userItems.avatar.apply {
                     Glide.with(itemView).load(userItems.avatar).into(avatar)
                 }
-                tv_username.text = userItems.username
+                tv_username.text = userItems.login
             }
         }
     }

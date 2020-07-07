@@ -47,9 +47,7 @@ class FollowingFollowersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var index = 1
-        if (arguments != null) {
-            index = arguments?.getInt(ARG_SECTION_NUMBER, 0) as Int
-        }
+        arguments?.let { index = it.getInt(ARG_SECTION_NUMBER, 0) }
 
         when (index) {
             1 -> {

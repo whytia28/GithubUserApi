@@ -45,9 +45,11 @@ class UserAdapter :
             }
         }
     }
+
     interface OnItemClickCallback {
         fun onItemClicked(data: UserItems)
     }
+
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }

@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">GithubUserApi</string>
-    <string name="type_something">Type something</string>
-    <string name="submission_2_bfaa">Submission 2 BFAA</string>
+    <string name="submission_2_bfaa" translatable="false">Submission 2 BFAA</string>
     <string name="username">Username</string>
-    <string name="organization">Organization</string>
     <string name="type_some_keyword">Type some keyword</string>
     <string name="search">Search</string>
     <string name="main_title">Github User Search</string>
@@ -14,6 +12,5 @@
     <string name="location">Location</string>
     <string name="tab_1">Followers</string>
     <string name="tab_2">Following</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_language_setting">Change Language Setting</string>
 </resources>

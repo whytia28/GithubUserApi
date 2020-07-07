@@ -9,7 +9,6 @@
     tools:context=".SplashScreenActivity">
 
     <TextView
-        android:id="@+id/tvSplash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/submission_2_bfaa"

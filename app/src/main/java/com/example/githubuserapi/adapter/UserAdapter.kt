@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.model.User
 import kotlinx.android.synthetic.main.user_items.view.*
 
 class UserAdapter :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
-    private var mData = ArrayList<UserItems>()
+    private var mData = ArrayList<User>()
 
-    fun setData(items: ArrayList<UserItems>) {
+    fun setData(items: ArrayList<User>) {
         mData.clear()
         mData.addAll(items)
         notifyDataSetChanged()
@@ -35,19 +35,19 @@ class UserAdapter :
     override fun getItemCount(): Int = mData.size
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(userItems: UserItems) {
+        fun bind(user: User) {
             with(itemView) {
-                userItems.avatar.apply {
-                    Glide.with(itemView).load(userItems.avatar).into(avatar)
+                user.avatar.apply {
+                    Glide.with(itemView).load(user.avatar).into(avatar)
                 }
-                tv_username.text = userItems.login
-                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(userItems) }
+                tv_username.text = user.login
+                itemView.setOnClickListener { onItemClickCallback?.onItemClicked(user) }
             }
         }
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: UserItems)
+        fun onItemClicked(data: User)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {

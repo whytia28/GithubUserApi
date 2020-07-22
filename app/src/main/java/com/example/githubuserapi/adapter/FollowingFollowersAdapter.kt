@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.model.User
 import kotlinx.android.synthetic.main.user_items.view.*
 
 class FollowingFollowersAdapter :
     RecyclerView.Adapter<FollowingFollowersAdapter.FollowingViewHolder>() {
 
-    private val listData = ArrayList<UserItems>()
+    private val listData = ArrayList<User>()
 
-    fun setData(items: ArrayList<UserItems>) {
+    fun setData(items: ArrayList<User>) {
         this.listData.clear()
         this.listData.addAll(items)
         notifyDataSetChanged()
@@ -33,12 +33,12 @@ class FollowingFollowersAdapter :
     }
 
     inner class FollowingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(userItems: UserItems) {
+        fun bind(user: User) {
             with(itemView) {
-                userItems.avatar.apply {
-                    Glide.with(itemView).load(userItems.avatar).into(avatar)
+                user.avatar.apply {
+                    Glide.with(itemView).load(user.avatar).into(avatar)
                 }
-                tv_username.text = userItems.login
+                tv_username.text = user.login
             }
         }
     }

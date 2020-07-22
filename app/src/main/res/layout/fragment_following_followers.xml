@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackground2"
-    tools:context=".detail.FollowingFollowersFragment">
+    tools:context=".fragment.FollowingFollowersFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"

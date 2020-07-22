@@ -1,4 +1,4 @@
-package com.example.githubuserapi.detail
+package com.example.githubuserapi.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuserapi.R
-import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.model.User
 import com.example.githubuserapi.adapter.FollowingFollowersAdapter
 import com.example.githubuserapi.viewmodel.FollowersViewModel
 import com.example.githubuserapi.viewmodel.FollowingViewModel
@@ -31,7 +31,7 @@ class FollowingFollowersFragment : Fragment() {
         }
     }
 
-    private var username: UserItems? = null
+    private var username: User? = null
     private lateinit var adapter: FollowingFollowersAdapter
     private lateinit var followingViewModel: FollowingViewModel
     private lateinit var followersViewModel: FollowersViewModel
@@ -68,7 +68,7 @@ class FollowingFollowersFragment : Fragment() {
         ).get(FollowingViewModel::class.java)
 
 
-        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as UserItems
+        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
         showLoading(true)
 
         username?.login?.let { followingViewModel.setFollowing(it) }
@@ -87,7 +87,7 @@ class FollowingFollowersFragment : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         ).get(FollowersViewModel::class.java)
 
-        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as UserItems
+        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
         showLoading(true)
 
         username?.login?.let { followersViewModel.setFollowers(it) }

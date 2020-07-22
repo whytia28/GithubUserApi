@@ -1,4 +1,4 @@
-package com.example.githubuserapi
+package com.example.githubuserapi.activity
 
 import android.app.SearchManager
 import android.content.Context
@@ -13,13 +13,17 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubuserapi.R
 import com.example.githubuserapi.adapter.UserAdapter
-import com.example.githubuserapi.detail.DetailActivity
-import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.model.User
 import com.example.githubuserapi.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val TOKEN = "token 1a6cfe6400a0305f3cfa98868c5235b6d8e5498a"
+    }
 
     private lateinit var adapter: UserAdapter
     private lateinit var mainViewModel: MainViewModel
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.adapter = adapter
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: UserItems) {
+            override fun onItemClicked(data: User) {
                 val mainIntent = Intent(this@MainActivity, DetailActivity::class.java)
                 mainIntent.putExtra(DetailActivity.EXTRA_USER, data)
                 startActivity(mainIntent)
@@ -78,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 showLoading(true)
-                mainViewModel.setUser(query)
+                mainViewModel.setQueryUser(query)
                 return true
             }
         })

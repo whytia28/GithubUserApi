@@ -15,15 +15,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".detail.DetailActivity" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

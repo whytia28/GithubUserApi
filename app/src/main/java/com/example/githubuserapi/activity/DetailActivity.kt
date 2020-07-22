@@ -1,4 +1,4 @@
-package com.example.githubuserapi.detail
+package com.example.githubuserapi.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,14 +7,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.githubuserapi.R
-import com.example.githubuserapi.model.UserItems
+import com.example.githubuserapi.model.User
 import com.example.githubuserapi.adapter.PagerAdapter
 import com.example.githubuserapi.viewmodel.DetailViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    private var userItems: UserItems? = null
+    private var user: User? = null
     private lateinit var detailViewModel: DetailViewModel
 
     companion object {
@@ -26,16 +26,22 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         supportActionBar?.title = getString(R.string.detail_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setViewPager()
         setDetail()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     private fun setDetail() {
-        userItems = intent.getParcelableExtra(EXTRA_USER) as UserItems
-        tv_username.text = userItems!!.login
-        userItems!!.avatar.apply {
-            Glide.with(this@DetailActivity).load(userItems!!.avatar).into(avatar)
+        user = intent.getParcelableExtra(EXTRA_USER) as User
+        tv_username.text = user!!.login
+        user!!.avatar.apply {
+            Glide.with(this@DetailActivity).load(user!!.avatar).into(avatar)
         }
 
         detailViewModel = ViewModelProvider(
@@ -43,7 +49,7 @@ class DetailActivity : AppCompatActivity() {
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailViewModel::class.java)
 
-        userItems?.login?.let { detailViewModel.setDetailUser(it) }
+        user?.login?.let { detailViewModel.setDetailUser(it) }
         detailViewModel.getDetailUser().observe(this@DetailActivity, Observer { userItems ->
             if (userItems != null) {
                 tv_name.text = userItems.name
